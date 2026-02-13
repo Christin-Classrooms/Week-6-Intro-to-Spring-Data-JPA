@@ -1,6 +1,7 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Player;
+import com.example.Thymeleaf.Demo.repository.PlayerRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,27 +10,25 @@ import java.util.List;
 @Service
 public class PlayerService {
 
-    private List<Player> players;   
-    private static int nextId = 6;
-    public PlayerService() {
-        players = new ArrayList<>();
-        players.add(new Player(1, "Player1", "player1@gmail.com"));
-        players.add(new Player(2, "Player2", "player2@gmail.com"));
-        players.add(new Player(3, "Player3", "player3@gmail.com"));
-        players.add(new Player(4, "Player4", "player4@gmail.com"));
-        players.add(new Player(5, "Player5", "player5@gmail.com"));
-        
+    private PlayerRepo repo;
+
+
+
+
+    public PlayerService(PlayerRepo repo) {
+
+        this.repo = repo;
     }
 
     public List<Player> getAllPlayers() {
         
-        return players;
+        return repo.findAll();
     }
 
 
      public void addPlayer(Player player) {
-        player.setId(nextId++);
-        players.add(player);
+
+        repo.save(player);
     }
 
 

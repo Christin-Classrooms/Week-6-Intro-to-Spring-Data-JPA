@@ -26,8 +26,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="player : ${players}">
-                    <th scope="row" th:text="${player.id}">1</th>
+                <tr th:each="player,itr : ${players}">
+                    <th scope="row" th:text="${itr.count}">1</th>
                     <td th:text="${player.name}">Name</td>
                     <td th:text="${player.email}">email@example.com</td>
                     <td>
