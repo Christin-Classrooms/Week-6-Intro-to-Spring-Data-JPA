@@ -1,29 +1,34 @@
-# Lab 2 - Thymeleaf & Postmapping
+# Lab 3 - Intro to Spring Data JPA
 
 ## Course Information
-- **Course:** CPAN 228
-- **Topic:** Implementing Controllers & Thymeleaf Templates
+
+* **Course:** CPAN 228
+* **Topic:** Persisting Data with Spring Data JPA & Repository Pattern
+
+---
+
+## Overview
+
+In the previous lab you built a `Fighter` registration form and stored fighters in a plain Java `List`. The problem with that approach is that all data disappears the moment the server restarts. In this lab you will connect your application to a real database using **Spring Data JPA**, so fighters are persisted permanently.
+
+---
 
 ## Getting Started
-
-This is a starter template for your lab assignments. Follow the GitHub setup below before beginning your work.
 
 ### GitHub Setup
 
 1. **Fork the Repository**
-   - Go to the repository on GitHub
-   - Click the "Fork" button in the top-right corner
-   - This creates your own copy of the project
+   - Go to the repository on GitHub and click the **Fork** button in the top-right corner
 
 2. **Clone Your Fork**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/Thymeleaf-Demo.git
-   cd Thymeleaf-Demo
+   git clone https://github.com/YOUR-USERNAME/Week-6-Intro-to-Spring-Data-JPA.git
+   cd Week-6-Intro-to-Spring-Data-JPA
    ```
 
 3. **Add Upstream Remote**
    ```bash
-   git remote add upstream https://github.com/ORIGINAL-REPO.git
+   git remote add upstream https://github.com/Christin-Classrooms/Week-6-Intro-to-Spring-Data-JPA.git
    ```
 
 4. **Pull Latest Changes**
@@ -33,108 +38,96 @@ This is a starter template for your lab assignments. Follow the GitHub setup bel
 
 5. **Create a Feature Branch**
    ```bash
-   git checkout -b feature/lab-yourname
+   git checkout -b feature/lab3-yourname
    ```
-   Replace `yourname` with your actual name (e.g., `feature/lab1-john-doe`)
+   Replace `yourname` with your actual name (e.g., `feature/lab3-john-doe`)
 
 ---
 
-## Lab 2 Assignment
+## Lab 3 Assignment
 
-### CreateFighterController Implementation with Form Validation
+### Part 1 — Annotate the Fighter Entity
 
-Implement a `CreateFighterController` with POST method to process fighter registration and add it to the fighter pool (list of fighters similar to what we did in class with players).
+Your `Fighter` class already has all its fields. Your job is to turn it into a proper **JPA Entity** so Hibernate can map it to a database table automatically.
 
-#### Requirements
+**Requirements:**
+- Annotate the class so JPA recognizes it as an entity
+- Add a primary key `id` field that auto-increments
+- Keep all existing fields and validation annotations from the previous lab
+- Look at how we implemented it in Player Class
+---
 
-##### Controller Implementation
-- **Implement `createFighter()` method** with POST signature
-  - Handle form submissions from the fighter registration form
-  - Add submitted fighters to the fighter pool (list)
-  - Redirect on successful submission
+### Part 2 — Create the FighterRepository
 
-##### Validation Requirements
-- **All fields required:** name, health, damage, resistance
-- **Health validation:** Must be more than 1000 but less than 1500
-- **Damage validation:** Must be less than 100
-- **Resistance validation:** Must be from 0 to 10 and must be a double value
+Create a `FighterRepository` interface inside a `repository` package. By extending `JpaRepository` you get the following methods generated for you automatically — no implementation needed:
 
-##### Form & Display
-- **CreateFighter Template:** 
-  - Create a registration form that guides users to fix validation issues
-  - Display validation error messages on the form
-  - Make it visually appealing using the existing `styles.css` and Bootstrap
+| Method | What it does |
+|---|---|
+| `save(fighter)` | INSERT or UPDATE a fighter |
+| `findById(id)` | SELECT a single fighter by ID |
+| `findAll()` | SELECT all fighters |
+| `deleteById(id)` | DELETE a fighter by ID |
+| `count()` | COUNT total fighters |
+| `existsById(id)` | Check if a fighter exists |
 
-- **FighterController:**
-  - Create a new `FighterController` that renders fighters in a table
-  - Display all registered fighters similar to what we did with Players
-  - Table should show: name, health, damage, resistance
-
-##### Testing
-- Ensure validation is properly working on form submission
-- Test all validation scenarios
-- Verify fighters are added to the list successfully
+implements all of these methods in the `FighterService` class
 
 ---
 
+
+### Part 3 — Refractor `FighterController` and `CreateFighterController` to use the new source of data
+
+No need to add methods we didn't have before.
+
+---
+
+### Part 4 — Update the Thymeleaf Templates
+
+Update your templates to support all the new operations. Your list page should have Edit and Delete buttons for each fighter, and your form should work for both creating and editing a fighter.
+
+---
+
+## Validation Requirements (unchanged from Lab 2)
+
+| Field | Rule |
+|---|---|
+| `name` | Required, not blank |
+| `health` | Must be > 1000 and < 1500 |
+| `damage` | Must be < 100 |
+| `resistance` | Must be between 0.0 and 10.0 (double) |
+
+---
+
+## Testing Your Work
+
+Before submitting, verify each of the following manually:
+
+1. **Create** — Submit the form with valid data and confirm the fighter appears in the list
+2. **Create (invalid)** — Submit with bad data and confirm errors appear and nothing is saved
+3. **Read** — Navigate to the fighters list and confirm all saved fighters appear
+   
+---
 
 ## Development Workflow
 
-1. Create your feature branch with your name
-2. Make changes for the lab assignment
-3. Test locally: `mvn spring-boot:run`
-4. Commit your changes:
-   ```bash
-   git add .
-   git commit -m "Lab 2: Implement CreateFighterController with Validation"
-   ```
-5. Push to your fork:
-   ```bash
-   git push origin feature/lab-yourname
-   ```
-6. Create a pull request and submit the link on BlackBoard
+```bash
+# Run the app
+mvn spring-boot:run
+
+# Commit your changes
+git add .
+git commit -m "Lab 3: Implement FighterRepository with full CRUD"
+
+# Push to your fork
+git push origin feature/lab3-yourname
+```
+
+Then open a Pull Request and submit the link on BlackBoard.
 
 ---
 
 ## Resources
 
-- [Thymeleaf Cheat Sheet](THYMELEAF_CHEATSHEET.md) - Common Thymeleaf syntax and patterns
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
-- [Thymeleaf Official Docs](https://www.thymeleaf.org/)
-  <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
-    <span th:errors="*{name}">Name error</span>
-  </div>
-</div>
-```
-
----
-
-## Reference Quick Table
-
-| Attribute | Purpose |
-|-----------|---------|
-| `th:text` | Display variable (escaped HTML) |
-| `th:utext` | Display variable (raw HTML) |
-| `th:href` | Generate URLs |
-| `th:src` | Bind image/resource URLs |
-| `th:value` | Bind form input values |
-| `th:each` | Loop through collections |
-| `th:if` | Conditional rendering (true) |
-| `th:unless` | Conditional rendering (false) |
-| `th:switch/case` | Multiple conditions |
-| `th:object` | Bind form to model object |
-| `th:field` | Bind form input to model field |
-| `th:errors` | Display field validation errors |
-| `th:class` | Conditional CSS classes |
-| `th:style` | Conditional inline styles |
-| `th:with` | Define local variables |
-| `th:insert` | Include fragment as child |
-| `th:replace` | Replace element with fragment |
-| `@{}` | URL expression |
-| `${}` | Variable expression |
-| `*{}` | Object variable expression |
-| `#{}` | Utility object expression |
-
----
-
-
+* [Thymeleaf Cheat Sheet](THYMELEAF_CHEATSHEET.md)
+* [Spring Data JPA Docs](https://spring.io/projects/spring-data-jpa)
+* [Spring Boot Reference — Data](https://docs.spring.io/spring-boot/docs/current/reference/html/data.html)
