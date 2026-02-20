@@ -1,34 +1,57 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.repository.FighterRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FighterService {
 
-    
-    private List<Fighter> fighters;
-    private static int nextId = 6;
+    private final FighterRepository repo;
 
-    public FighterService() {
-        fighters = new ArrayList<>();
-        fighters.add(new Fighter(1, "Fighter1", 100, 15.5, 0.2));
-        fighters.add(new Fighter(2, "Fighter2", 120, 12.0, 0.3));
-        fighters.add(new Fighter(3, "Fighter3", 90, 18.5, 0.15));
-        fighters.add(new Fighter(4, "Fighter4", 110, 14.0, 0.25));
-        fighters.add(new Fighter(5, "Fighter5", 95, 16.5, 0.18));
+    public FighterService(FighterRepository repo) {
+        this.repo = repo;
     }
 
+    // findAll() -> SELECT all fighters
     public List<Fighter> getAllFighters() {
-        return fighters;
+        return repo.findAll();
     }
 
-    public void addFighter(Fighter fighter) {
-        fighter.setId(nextId++);
-        fighters.add(fighter);
+    // save(fighter) -> INSERT or UPDATE a fighter
+    public Fighter save(Fighter fighter) {
+        return repo.save(fighter);
     }
 
+    // use JPA
+    public Fighter addFighter(Fighter fighter) {
+        return repo.save(fighter);
+    }
+
+    // findById(id) -> SELECT a single fighter by ID
+    public Optional<Fighter> findById(int id) {
+        return repo.findById(id);
+    }
+
+    public Fighter getFighterById(int id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    // deleteById(id) -> DELETE a fighter by ID
+    public void deleteById(int id) {
+        repo.deleteById(id);
+    }
+
+    // count() -> COUNT total fighters
+    public long count() {
+        return repo.count();
+    }
+
+    // existsById(id) -> Check if a fighter exists
+    public boolean existsById(int id) {
+        return repo.existsById(id);
+    }
 }

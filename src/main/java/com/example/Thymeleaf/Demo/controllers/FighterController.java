@@ -22,7 +22,7 @@ public class FighterController {
         List<Fighter> fighters = fighterService.getAllFighters();
 
         model.addAttribute("fighters", fighters);
-        model.addAttribute("total", fighters.size());
+        model.addAttribute("total", fighterService.count());
         return "Fighters";
     }
 
