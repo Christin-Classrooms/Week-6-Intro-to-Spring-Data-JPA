@@ -1,9 +1,9 @@
-# Lab 3 - Intro to Spring Data JPA
+# Lab 3 - Intro to Spring Data JPA (Refactoring our Lab2 Backend with DB Connectivity)
 
 ## Course Information
 
 * **Course:** CPAN 228
-* **Topic:** Persisting Data with Spring Data JPA & Repository Pattern
+* **Topic:** Persisting Data with Spring Data JPA & Repository Pattern 
 
 ---
 
@@ -81,9 +81,9 @@ No need to add methods we didn't have before.
 
 ---
 
-### Part 4 — Update the Thymeleaf Templates
+### Thymeleaf templates
 
-Update your templates to support all the new operations. Your list page should have Edit and Delete buttons for each fighter, and your form should work for both creating and editing a fighter.
+No need to update Thymeleaf templates, we're just refractoring the back end.
 
 ---
 
