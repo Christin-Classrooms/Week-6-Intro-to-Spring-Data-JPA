@@ -1,3 +1,6 @@
+// Name: Fahad Arif (n01729165)
+// Course: Web Application Development (CPAN-228)
+
 package com.example.Thymeleaf.Demo.controllers;
 
 import com.example.Thymeleaf.Demo.Model.Fighter;
@@ -22,7 +25,7 @@ public class FighterController {
         List<Fighter> fighters = fighterService.getAllFighters();
 
         model.addAttribute("fighters", fighters);
-        model.addAttribute("total", fighters.size());
+        model.addAttribute("total", fighterService.count());
         return "Fighters";
     }
 
