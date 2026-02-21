@@ -70,3 +70,7 @@ replay_pid*
 ### Eclipse m2e generated files ###
 .project
 .classpath
+
+# H2 database files
+/data/
+*.db
