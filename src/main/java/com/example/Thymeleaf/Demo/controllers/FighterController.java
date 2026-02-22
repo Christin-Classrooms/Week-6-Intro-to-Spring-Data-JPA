@@ -19,11 +19,10 @@ public class FighterController {
 
     @GetMapping("/fighters")
     public String getFighters(Model model) {
-        List<Fighter> fighters = fighterService.getAllFighters();
+        List<Fighter> fighters = fighterService.findAll();
 
         model.addAttribute("fighters", fighters);
         model.addAttribute("total", fighters.size());
         return "Fighters";
     }
-
 }
