@@ -9,12 +9,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fighter {
-
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
     @NotBlank(message = "Fighter name is required")
     @Size(min=2, max=240, message="Name must be between 2 and 240 characters")
