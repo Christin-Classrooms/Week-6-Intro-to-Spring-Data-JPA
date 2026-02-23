@@ -1,15 +1,20 @@
 package com.example.Thymeleaf.Demo.Model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "fighters")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fighter {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     @NotBlank(message = "Fighter name is required")
@@ -30,5 +35,4 @@ public class Fighter {
     @DecimalMin(value="0.0", inclusive=true, message="Resistance must be at least 0")
     @DecimalMax(value="10.0", inclusive=true, message="Resistance must be at most 10")
     private Double resistance;
-
 }
