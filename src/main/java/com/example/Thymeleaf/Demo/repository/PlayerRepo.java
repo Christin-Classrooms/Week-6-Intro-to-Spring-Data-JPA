@@ -1,4 +1,4 @@
-package com.example.Thymeleaf.Demo.repository;
+package com.example.Thymeleaf.Demo.Repository;
 
 
 import com.example.Thymeleaf.Demo.Model.Player;
