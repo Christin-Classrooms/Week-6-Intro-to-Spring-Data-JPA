@@ -1,6 +1,7 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.repository.FighterRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 @Service
 public class FighterService {
 
-    
+    private FighterRepository repo;
     private List<Fighter> fighters;
     private static int nextId = 6;
 
@@ -31,4 +32,38 @@ public class FighterService {
         fighters.add(fighter);
     }
 
+    public Fighter save(Fighter fighter) {
+        return repo.save(fighter);
+    }
+
+    public Fighter findById(int id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    public Iterable<Fighter> findAll() {
+        return repo.findAll();
+    } 
+
+    public Fighter deleteById(int id) {
+        Fighter fighter = findById(id);
+
+        if (fighter != null) {
+            repo.deleteById(id);
+        }
+        return fighter;
+    }
+
+    public int count() {
+        return (int) repo.count();
+    }
+
+    public Fighter update(Fighter fighter) {
+        if (repo.existsById(fighter.getId())) {
+            return repo.save(fighter);
+            
+        } else {
+            return null;
+        }
+    }
 }
+

@@ -1,15 +1,24 @@
 package com.example.Thymeleaf.Demo.Model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Table(name = "fighters")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Fighter {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     @NotBlank(message = "Fighter name is required")
