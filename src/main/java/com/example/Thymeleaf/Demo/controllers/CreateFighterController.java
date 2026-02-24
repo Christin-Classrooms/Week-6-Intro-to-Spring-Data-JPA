@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class CreateFighterController {
@@ -24,13 +25,14 @@ public class CreateFighterController {
     }
 
     @PostMapping("/create-fighter")
-    public String createFighter(@Valid Fighter fighter, BindingResult result) {
-        if(result.hasErrors()) {
+    public String createFighter(@Valid @ModelAttribute("fighter") Fighter fighter, 
+                                BindingResult result) {
+        if (result.hasErrors()) {
             return "CreateFighter";
-        }
+    }
 
-        fighterService.addFighter(fighter);
-        return "redirect:/fighters";
+    fighterService.addFighter(fighter);
+    return "redirect:/fighters";
     }
 
 }
