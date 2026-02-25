@@ -1,34 +1,42 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Fighter;
-import org.springframework.stereotype.Service;
+import com.example.Thymeleaf.Demo.repository.FighterRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.stereotype.Service;
 @Service
 public class FighterService {
 
-    
-    private List<Fighter> fighters;
-    private static int nextId = 6;
+    private final FighterRepository fighterRepository;
 
-    public FighterService() {
-        fighters = new ArrayList<>();
-        fighters.add(new Fighter(1, "Fighter1", 100, 15.5, 0.2));
-        fighters.add(new Fighter(2, "Fighter2", 120, 12.0, 0.3));
-        fighters.add(new Fighter(3, "Fighter3", 90, 18.5, 0.15));
-        fighters.add(new Fighter(4, "Fighter4", 110, 14.0, 0.25));
-        fighters.add(new Fighter(5, "Fighter5", 95, 16.5, 0.18));
+    public FighterService(FighterRepository fighterRepository) {
+        this.fighterRepository = fighterRepository;
     }
 
     public List<Fighter> getAllFighters() {
-        return fighters;
+        return fighterRepository.findAll();
     }
 
-    public void addFighter(Fighter fighter) {
-        fighter.setId(nextId++);
-        fighters.add(fighter);
+    public Fighter addFighter(Fighter fighter) {
+        return fighterRepository.save(fighter);
     }
 
+    public Optional<Fighter> getFighterById(Long id) {
+        return fighterRepository.findById(id);
+    }
+
+    public void deleteFighterById(Long id) {
+        fighterRepository.deleteById(id);
+    }
+
+    public long count() {
+        return fighterRepository.count();
+    }
+
+    public boolean exists(Long id) {
+        return fighterRepository.existsById(id);
+    }
 }

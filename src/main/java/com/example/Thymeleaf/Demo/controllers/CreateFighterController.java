@@ -30,6 +30,7 @@ public class CreateFighterController {
         }
 
         fighterService.addFighter(fighter);
+        
         return "redirect:/fighters";
     }
 
