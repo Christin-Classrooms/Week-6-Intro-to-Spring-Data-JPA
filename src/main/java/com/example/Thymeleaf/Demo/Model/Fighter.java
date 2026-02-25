@@ -3,14 +3,17 @@ package com.example.Thymeleaf.Demo.Model;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity@Table(name = "fighters")
 public class Fighter {
 
-    private int id;
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     
     @NotBlank(message = "Fighter name is required")
     @Size(min=2, max=240, message="Name must be between 2 and 240 characters")
