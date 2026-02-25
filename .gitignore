@@ -70,3 +70,6 @@ replay_pid*
 ### Eclipse m2e generated files ###
 .project
 .classpath
+
+### Mac ###
+.DS_Store
