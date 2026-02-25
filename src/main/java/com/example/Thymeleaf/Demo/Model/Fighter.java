@@ -1,16 +1,21 @@
 package com.example.Thymeleaf.Demo.Model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "fighters")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fighter {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; 
     
     @NotBlank(message = "Fighter name is required")
     @Size(min=2, max=240, message="Name must be between 2 and 240 characters")
@@ -31,4 +36,10 @@ public class Fighter {
     @DecimalMax(value="10.0", inclusive=true, message="Resistance must be at most 10")
     private Double resistance;
 
+    public Fighter(String name, Integer health, Double damage, Double resistance) {
+        this.name = name;
+        this.health = health;
+        this.damage = damage;
+        this.resistance = resistance;
+    }
 }
