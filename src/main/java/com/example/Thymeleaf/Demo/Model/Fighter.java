@@ -4,12 +4,17 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
 @Data
+@Entity
+@Table(name="fighters")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fighter {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     @NotBlank(message = "Fighter name is required")
