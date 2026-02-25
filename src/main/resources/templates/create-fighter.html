@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Fighter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3>⚔️ Register a New Fighter</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/create-fighter}" th:object="${fighter}" method="post">
+
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-bold">Fighter Name</label>
+                            <input type="text" id="name" th:field="*{name}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                                   placeholder="Enter fighter name">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                                 th:errors="*{name}"></div>
+                        </div>
+
+                        <!-- Health Field -->
+                        <div class="mb-3">
+                            <label for="health" class="form-label fw-bold">Health
+                                <small class="text-muted">(must be between 1000 and 1500)</small>
+                            </label>
+                            <input type="number" id="health" th:field="*{health}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('health')} ? 'is-invalid' : ''"
+                                   placeholder="e.g. 1200">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('health')}"
+                                 th:errors="*{health}"></div>
+                        </div>
+
+                        <!-- Damage Field -->
+                        <div class="mb-3">
+                            <label for="damage" class="form-label fw-bold">Damage
+                                <small class="text-muted">(must be less than 100)</small>
+                            </label>
+                            <input type="number" id="damage" th:field="*{damage}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('damage')} ? 'is-invalid' : ''"
+                                   placeholder="e.g. 75">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('damage')}"
+                                 th:errors="*{damage}"></div>
+                        </div>
+
+                        <!-- Resistance Field -->
+                        <div class="mb-3">
+                            <label for="resistance" class="form-label fw-bold">Resistance
+                                <small class="text-muted">(decimal from 0.0 to 10.0)</small>
+                            </label>
+                            <input type="number" step="0.1" id="resistance" th:field="*{resistance}"
+                                   class="form-control"
+                                   th:classappend="${#fields.hasErrors('resistance')} ? 'is-invalid' : ''"
+                                   placeholder="e.g. 7.5">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('resistance')}"
+                                 th:errors="*{resistance}"></div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-dark btn-lg">Register Fighter</button>
+                            <a th:href="@{/fighters}" class="btn btn-outline-secondary">View All Fighters</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
