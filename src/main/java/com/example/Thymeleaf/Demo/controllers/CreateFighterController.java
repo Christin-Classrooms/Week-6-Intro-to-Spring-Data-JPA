@@ -24,6 +24,8 @@ public class CreateFighterController {
     }
 
     @PostMapping("/create-fighter")
+    //public String createFighter(@Valid @ModelAttribute("fighter") Fighter fighter, BindingResult result) {
+
     public String createFighter(@Valid Fighter fighter, BindingResult result) {
         if(result.hasErrors()) {
             return "CreateFighter";
