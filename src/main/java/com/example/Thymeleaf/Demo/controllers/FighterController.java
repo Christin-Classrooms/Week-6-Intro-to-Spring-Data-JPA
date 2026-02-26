@@ -1,12 +1,13 @@
 package com.example.Thymeleaf.Demo.controllers;
 
-import com.example.Thymeleaf.Demo.Model.Fighter;
-import com.example.Thymeleaf.Demo.Service.FighterService;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.Service.FighterService;
 
 @Controller
 public class FighterController {
@@ -18,12 +19,13 @@ public class FighterController {
     }
 
     @GetMapping("/fighters")
-    public String getFighters(Model model) {
-        List<Fighter> fighters = fighterService.getAllFighters();
+public String getFighters(Model model) {
 
-        model.addAttribute("fighters", fighters);
-        model.addAttribute("total", fighters.size());
-        return "Fighters";
-    }
+    List<Fighter> fighters = fighterService.findAll();
 
+    model.addAttribute("fighters", fighters);
+    model.addAttribute("total", fighters.size());
+
+    return "Fighters";
+}
 }
