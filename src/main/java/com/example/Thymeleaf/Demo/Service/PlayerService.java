@@ -1,7 +1,7 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Player;
-import com.example.Thymeleaf.Demo.repository.PlayerRepository;
+import com.example.Thymeleaf.Demo.repository.PlayerRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,25 +9,29 @@ import java.util.List;
 @Service
 public class PlayerService {
 
-    private PlayerRepository repo;
+    private final PlayerRepo playerRepo;
 
-    public PlayerService(PlayerRepository repo) {
-
-        this.repo = repo;
+    public PlayerService(PlayerRepo playerRepo) {
+        this.playerRepo = playerRepo;
     }
 
-    public List<Player> getAllPlayers() {
-        
-        return repo.findAll();
-    }
-
+    // ADD PLAYER
     public void addPlayer(Player player) {
-
-        repo.save(player);
+        playerRepo.save(player);
     }
 
-    public Player getPlayerById(int id) {
-        return repo.findById(id).orElse(null);
+    // GET ALL PLAYERS
+    public List<Player> getAllPlayers() {
+        return playerRepo.findAll();
     }
 
+    // GET PLAYER BY ID
+    public Player getPlayerById(Integer id) {
+        return playerRepo.findById(id);
+    }
+
+    // DELETE PLAYER (optional)
+    public void deletePlayer(Integer id) {
+        // add later if needed
+    }
 }

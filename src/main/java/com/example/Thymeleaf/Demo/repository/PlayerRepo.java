@@ -40,8 +40,7 @@ public class PlayerRepo {
             public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
 
                 Player player = new Player();
-                player.setId(rs.getInt("id"));
-                player.setName(rs.getString("name"));
+                player.setId(rs.getLong("id"));                 player.setName(rs.getString("name"));
                 player.setEmail(rs.getString("email"));
 
                 return player;
@@ -65,8 +64,7 @@ public class PlayerRepo {
 
                 Player player = new Player();
 
-                player.setId(rs.getInt("id"));
-                player.setName(rs.getString("name"));
+                player.setId(rs.getLong("id"));                player.setName(rs.getString("name"));
                 player.setEmail(rs.getString("email"));
 
                 return player;

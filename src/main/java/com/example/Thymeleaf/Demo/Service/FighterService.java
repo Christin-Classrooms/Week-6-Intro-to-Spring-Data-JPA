@@ -1,34 +1,49 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.repository.FighterRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FighterService {
 
-    
-    private List<Fighter> fighters;
-    private static int nextId = 6;
+    private final FighterRepository fighterRepository;
 
-    public FighterService() {
-        fighters = new ArrayList<>();
-        fighters.add(new Fighter(1, "Fighter1", 100, 15.5, 0.2));
-        fighters.add(new Fighter(2, "Fighter2", 120, 12.0, 0.3));
-        fighters.add(new Fighter(3, "Fighter3", 90, 18.5, 0.15));
-        fighters.add(new Fighter(4, "Fighter4", 110, 14.0, 0.25));
-        fighters.add(new Fighter(5, "Fighter5", 95, 16.5, 0.18));
+    // Constructor Injection
+    public FighterService(FighterRepository fighterRepository) {
+        this.fighterRepository = fighterRepository;
     }
 
-    public List<Fighter> getAllFighters() {
-        return fighters;
-    }
-
+    // CREATE (Add Fighter)
     public void addFighter(Fighter fighter) {
-        fighter.setId(nextId++);
-        fighters.add(fighter);
+        fighterRepository.save(fighter);
     }
 
+    // READ (Get All Fighters)
+    public List<Fighter> getAllFighters() {
+        return fighterRepository.findAll();
+    }
+
+    // READ (Get Fighter By ID)
+    public Optional<Fighter> getFighterById(Long id) {
+        return fighterRepository.findById(id);
+    }
+
+    // DELETE
+    public void deleteFighter(Long id) {
+        fighterRepository.deleteById(id);
+    }
+
+    // COUNT (optional but useful)
+    public long countFighters() {
+        return fighterRepository.count();
+    }
+
+    // EXISTS CHECK (optional)
+    public boolean fighterExists(Long id) {
+        return fighterRepository.existsById(id);
+    }
 }
