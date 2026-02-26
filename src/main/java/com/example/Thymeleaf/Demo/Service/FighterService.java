@@ -1,34 +1,50 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Fighter;
+import com.example.Thymeleaf.Demo.repository.FighterRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
 public class FighterService {
 
+    private FighterRepository repo;
+    public FighterService(FighterRepository repo){
+        this.repo = repo;
+    }
     
-    private List<Fighter> fighters;
-    private static int nextId = 6;
-
-    public FighterService() {
-        fighters = new ArrayList<>();
-        fighters.add(new Fighter(1, "Fighter1", 100, 15.5, 0.2));
-        fighters.add(new Fighter(2, "Fighter2", 120, 12.0, 0.3));
-        fighters.add(new Fighter(3, "Fighter3", 90, 18.5, 0.15));
-        fighters.add(new Fighter(4, "Fighter4", 110, 14.0, 0.25));
-        fighters.add(new Fighter(5, "Fighter5", 95, 16.5, 0.18));
+    public List<Fighter> getAllfighters(){
+        return repo.findAll();
     }
+    
 
-    public List<Fighter> getAllFighters() {
-        return fighters;
-    }
 
     public void addFighter(Fighter fighter) {
-        fighter.setId(nextId++);
-        fighters.add(fighter);
+        repo.save(fighter);
+    }
+    public Fighter getFighterById( int id){ 
+        return repo.findById(id).orElse(null);
+    }
+// to delete the fighters by id 
+    public Fighter deleteFighterById( int id){
+       Fighter fighter = repo.findById(id).orElse(null);
+
+       if(fighter != null){ 
+        repo.deleteById(id);
+       }
+       return fighter;
+
+    }
+// to get the count of how many fighters
+    public long getCount(){
+        return repo.count();
+    } 
+
+// check to seee if the fighter exists 
+    public boolean checkFighterId( int id){ 
+        return repo.existsById(id);
     }
 
 }
