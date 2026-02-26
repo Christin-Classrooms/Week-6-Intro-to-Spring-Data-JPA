@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
 
 @Controller
 public class FighterController {
@@ -14,16 +13,16 @@ public class FighterController {
     private final FighterService fighterService;
 
     public FighterController(FighterService fighterService) {
+
         this.fighterService = fighterService;
     }
 
     @GetMapping("/fighters")
     public String getFighters(Model model) {
-        List<Fighter> fighters = fighterService.getAllFighters();
-
-        model.addAttribute("fighters", fighters);
-        model.addAttribute("total", fighters.size());
+        model.addAttribute("fighters", fighterService.getAllFighters());
+        model.addAttribute("total", fighterService.countAmountOfFighters());
         return "Fighters";
     }
+
 
 }
