@@ -1,33 +1,22 @@
 package com.example.Thymeleaf.Demo.Service;
 
 import com.example.Thymeleaf.Demo.Model.Player;
-import com.example.Thymeleaf.Demo.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PlayerService {
 
-    private PlayerRepository repo;
-
-    public PlayerService(PlayerRepository repo) {
-
-        this.repo = repo;
-    }
-
     public List<Player> getAllPlayers() {
-        
-        return repo.findAll();
-    }
-
-    public void addPlayer(Player player) {
-
-        repo.save(player);
-    }
-
-    public Player getPlayerById(int id) {
-        return repo.findById(id).orElse(null);
+        List<Player> players = new ArrayList<>();
+        players.add(new Player(1, "Player1", "player1@gmail.com"));
+        players.add(new Player(2, "Player2", "player2@gmail.com"));
+        players.add(new Player(3, "Player3", "player3@gmail.com"));
+        players.add(new Player(4, "Player4", "player4@gmail.com"));
+        players.add(new Player(5, "Player5", "player5@gmail.com"));
+        return players;
     }
 
 }

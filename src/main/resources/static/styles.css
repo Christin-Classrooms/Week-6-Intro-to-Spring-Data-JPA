@@ -1,37 +1,306 @@
-:root{
-    --brand:#0d6efd;
+/* -----------------------------------
+   ROOT + GLOBAL
+----------------------------------- */
+:root {
+    --brand: #0d6efd;
+    --tekken-red: #ff3e3e;
 }
-body{
-    background:#f8f9fa;
+
+body {
+    color: #e6e6e6;
+    background-color: #3a3a3a;
+    margin: 0;
+    padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
-.app-container{
-    max-width:960px;
-    margin:40px auto;
+
+/* -----------------------------------
+   NAVBAR
+----------------------------------- */
+nav {
+    background-color: #1e1e1e;
+    padding: 15px;
 }
-.app-header{
-    margin-bottom:20px;
+
+nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #e6e6e6;
 }
-.players-card{
-    padding:20px;
-    background:#fff;
-    border-radius:8px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+
+nav a:hover {
+    color: var(--tekken-red);
 }
-.status-badge-online{
-    background: #198754;
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+/* -----------------------------------
+   LAYOUT CONTAINERS
+----------------------------------- */
+.app-container {
+    max-width: 960px;
+    margin: 40px auto;
+}
+
+.app-header {
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 95%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #4c4c4c;
+    border-top: 4px solid var(--tekken-red);
+    border-bottom: 4px solid var(--tekken-red);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* -----------------------------------
+   CARDS
+----------------------------------- */
+.players-card {
+    padding: 20px;
+    background: #4c4c4c;
+    background: #1a1a1a;
+    color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* -----------------------------------
+   STATUS BADGES
+----------------------------------- */
+.status-badge-online,
+.status-badge-offline {
     color: #fff;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:0.85rem;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
 }
-.status-badge-offline{
+
+.status-badge-online {
+    background: #198754;
+}
+
+.status-badge-offline {
     background: #dc3545;
-    color:#fff;
-    padding:4px 8px;
-    border-radius:12px;
-    font-size:0.85rem;
 }
-.navbar-brand{
-    font-weight:700;
+
+/* -----------------------------------
+   HEADINGS + TEXT
+----------------------------------- */
+h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-style: italic;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    border-bottom: 1px solid #333;
 }
+
+h3 {
+    color: var(--tekken-red);
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+
+.game-title span {
+    color: var(--tekken-red);
+}
+
+/* -----------------------------------
+   LISTS
+----------------------------------- */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    border-left: 2px solid var(--tekken-red);
+}
+
+li strong {
+    color: #fff;
+    display: block;
+}
+
+/* -----------------------------------
+   FIGHTER GRID + CARDS
+----------------------------------- */
+.fighter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.fighter-card {
+    box-sizing: border-box;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fighter-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    transition: opacity 0.5s ease, filter 0.5s ease;
+    z-index: 2;
+    filter: grayscale(100%);
+}
+
+.fighter-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+}
+
+.fighter-name {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: 1rem;
+    z-index: 3;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Hover Effects */
+.fighter-card:hover {
+    border-color: var(--tekken-red);
+    border-width: 2px;
+    transform: translateY(-8px);
+    z-index: 10;
+}
+
+.fighter-card:hover .fighter-overlay {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.fighter-card:hover .fighter-name {
+    opacity: 0;
+    transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .fighter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -----------------------------------
+   FOOTER
+----------------------------------- */
+.footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+}
+
+/* Rounded container for the table */
+.players-card .table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Unified dark theme for Players table */
+.players-card .table,
+.players-card .table thead,
+.players-card .table tbody,
+.players-card .table td,
+.players-card .table th {
+    background-color: #111 !important;
+    color: #e6e6e6 !important;
+    border-color: #333 !important;
+    padding: 12px 16px !important;
+    vertical-align: middle;
+}
+
+/* Header row */
+.players-card .table thead tr {
+    background-color: #222 !important;
+    color: #ff3e3e !important;
+}
+
+/* Hover effect */
+.players-card .table tbody tr:hover {
+    background-color: #1a1a1a !important;
+}
+
+
+/* -----------------------------------
+   createFighter.html
+----------------------------------- */
+.create-form-container {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border-top: 4px solid #ff3e3e;
+    border-bottom: 4px solid #ff3e3e;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.create-form-container label {
+    font-weight: bold;
+    color: #e6e6e6;
+}
+.create-form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #111;
+    color: #e6e6e6;
+}
+.create-form-container p {
+    color: #ff3e3e;
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+}
+.create-form-container button {
+    background: #ff3e3e;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+.create-form-container button:hover {
+    background: #cc2f2f;
+}
+
+
+

@@ -1,34 +1,29 @@
-# Lab 3 - Intro to Spring Data JPA (Refactoring our Lab2 Backend with DB Connectivity)
+# Lab 1 - Thymeleaf Demo
 
 ## Course Information
-
-* **Course:** CPAN 228
-* **Topic:** Persisting Data with Spring Data JPA & Repository Pattern 
-
----
-
-## Overview
-
-In the previous lab you built a `Fighter` registration form and stored fighters in a plain Java `List`. The problem with that approach is that all data disappears the moment the server restarts. In this lab you will connect your application to a real database using **Spring Data JPA**, so fighters are persisted permanently.
-
----
+- **Course:** CPAN 228
+- **Topic:** Implementing Controllers & Thymeleaf Templates
 
 ## Getting Started
+
+This is a starter template for your lab assignments. Follow the GitHub setup below before beginning your work.
 
 ### GitHub Setup
 
 1. **Fork the Repository**
-   - Go to the repository on GitHub and click the **Fork** button in the top-right corner
+   - Go to the repository on GitHub
+   - Click the "Fork" button in the top-right corner
+   - This creates your own copy of the project
 
 2. **Clone Your Fork**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/Week-6-Intro-to-Spring-Data-JPA.git
-   cd Week-6-Intro-to-Spring-Data-JPA
+   git clone https://github.com/YOUR-USERNAME/Thymeleaf-Demo.git
+   cd Thymeleaf-Demo
    ```
 
 3. **Add Upstream Remote**
    ```bash
-   git remote add upstream https://github.com/Christin-Classrooms/Week-6-Intro-to-Spring-Data-JPA.git
+   git remote add upstream https://github.com/ORIGINAL-REPO.git
    ```
 
 4. **Pull Latest Changes**
@@ -38,96 +33,97 @@ In the previous lab you built a `Fighter` registration form and stored fighters 
 
 5. **Create a Feature Branch**
    ```bash
-   git checkout -b feature/lab3-yourname
+   git checkout -b feature/lab-yourname
    ```
-   Replace `yourname` with your actual name (e.g., `feature/lab3-john-doe`)
+   Replace `yourname` with your actual name (e.g., `feature/lab1-john-doe`)
 
 ---
 
-## Lab 3 Assignment
+## Lab 1 Assignment
 
-### Part 1 — Annotate the Fighter Entity
+### About Controller Implementation
 
-Your `Fighter` class already has all its fields. Your job is to turn it into a proper **JPA Entity** so Hibernate can map it to a database table automatically.
+Implement a new `AboutController` with the following requirements:
 
-**Requirements:**
-- Annotate the class so JPA recognizes it as an entity
-- Add a primary key `id` field that auto-increments
-- Keep all existing fields and validation annotations from the previous lab
-- Look at how we implemented it in Player Class
----
+#### Endpoint Requirements
+- **Path:** `localhost:8080/about`
+- **HTTP Method:** GET
+- **Return:** HTML template displaying content about the "Tekken Reborn" game
 
-### Part 2 — Create the FighterRepository
+#### Template Requirements
+- **Heading:** Display an `<h1>` tag with the text `Tekken Reborn`
+- **Description:** Add a description of Tekken Reborn or the game's features
+  - Be creative! Use any HTML elements you like (paragraphs, divs, lists, images, etc.)
+  - Make it visually appealing using the existing `styles.css`
+  - Include at least 2-3 sentences of meaningful content
 
-Create a `FighterRepository` interface inside a `repository` package. By extending `JpaRepository` you get the following methods generated for you automatically — no implementation needed:
-
-| Method | What it does |
-|---|---|
-| `save(fighter)` | INSERT or UPDATE a fighter |
-| `findById(id)` | SELECT a single fighter by ID |
-| `findAll()` | SELECT all fighters |
-| `deleteById(id)` | DELETE a fighter by ID |
-| `count()` | COUNT total fighters |
-| `existsById(id)` | Check if a fighter exists |
-
-implements all of these methods in the `FighterService` class
+#### Example Output
+```html
+<h1>Tekken Reborn</h1>
+<p>An epic fighting game where legendary warriors clash...</p>
+<!-- Add more creative content here -->
+```
 
 ---
 
-
-### Part 3 — Refractor `FighterController` and `CreateFighterController` to use the new source of data
-
-No need to add methods we didn't have before.
-
----
-
-### Thymeleaf templates
-
-No need to update Thymeleaf templates, we're just refractoring the back end.
-
----
-
-## Validation Requirements (unchanged from Lab 2)
-
-| Field | Rule |
-|---|---|
-| `name` | Required, not blank |
-| `health` | Must be > 1000 and < 1500 |
-| `damage` | Must be < 100 |
-| `resistance` | Must be between 0.0 and 10.0 (double) |
-
----
-
-## Testing Your Work
-
-Before submitting, verify each of the following manually:
-
-1. **Create** — Submit the form with valid data and confirm the fighter appears in the list
-2. **Create (invalid)** — Submit with bad data and confirm errors appear and nothing is saved
-3. **Read** — Navigate to the fighters list and confirm all saved fighters appear
-   
----
 
 ## Development Workflow
 
-```bash
-# Run the app
-mvn spring-boot:run
-
-# Commit your changes
-git add .
-git commit -m "Lab 3: Implement FighterRepository with full CRUD"
-
-# Push to your fork
-git push origin feature/lab3-yourname
-```
-
-Then open a Pull Request and submit the link on BlackBoard.
+1. Create your feature branch with your name
+2. Make changes for the lab assignment
+3. Test locally: `mvn spring-boot:run`
+4. Commit your changes:
+   ```bash
+   git add .
+   git commit -m "Lab 1: Implement About Controller"
+   ```
+5. Push to your fork:
+   ```bash
+   git push origin feature/lab-yourname
+   ```
+6. Create a pull request 
 
 ---
 
 ## Resources
 
-* [Thymeleaf Cheat Sheet](THYMELEAF_CHEATSHEET.md)
-* [Spring Data JPA Docs](https://spring.io/projects/spring-data-jpa)
-* [Spring Boot Reference — Data](https://docs.spring.io/spring-boot/docs/current/reference/html/data.html)
+- [Thymeleaf Cheat Sheet](THYMELEAF_CHEATSHEET.md) - Common Thymeleaf syntax and patterns
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
+- [Thymeleaf Official Docs](https://www.thymeleaf.org/)
+  <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+    <span th:errors="*{name}">Name error</span>
+  </div>
+</div>
+```
+
+---
+
+## Reference Quick Table
+
+| Attribute | Purpose |
+|-----------|---------|
+| `th:text` | Display variable (escaped HTML) |
+| `th:utext` | Display variable (raw HTML) |
+| `th:href` | Generate URLs |
+| `th:src` | Bind image/resource URLs |
+| `th:value` | Bind form input values |
+| `th:each` | Loop through collections |
+| `th:if` | Conditional rendering (true) |
+| `th:unless` | Conditional rendering (false) |
+| `th:switch/case` | Multiple conditions |
+| `th:object` | Bind form to model object |
+| `th:field` | Bind form input to model field |
+| `th:errors` | Display field validation errors |
+| `th:class` | Conditional CSS classes |
+| `th:style` | Conditional inline styles |
+| `th:with` | Define local variables |
+| `th:insert` | Include fragment as child |
+| `th:replace` | Replace element with fragment |
+| `@{}` | URL expression |
+| `${}` | Variable expression |
+| `*{}` | Object variable expression |
+| `#{}` | Utility object expression |
+
+---
+
+
