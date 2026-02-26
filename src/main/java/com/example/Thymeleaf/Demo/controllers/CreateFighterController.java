@@ -29,7 +29,7 @@ public class CreateFighterController {
             return "CreateFighter";
         }
 
-        fighterService.addFighter(fighter);
+        fighterService.saveFighter(fighter);
         return "redirect:/fighters";
     }
 

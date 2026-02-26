@@ -1,16 +1,16 @@
-package com.example.Thymeleaf.Demo.controllers;
+    package com.example.Thymeleaf.Demo.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.ui.Model;
+    import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class HomeController {
+    @Controller
+    public class HomeController {
 
-    @GetMapping("/")
-    public String getHomePage(Model model){
+        @GetMapping("/")
+        public String getHomePage(Model model){
 
-        model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
-        return "Home";
+            model.addAttribute("message", "Hello From Cpan 228 Java Code sent the text");
+            return "Home";
+        }
     }
-}
