@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Tekken Reborn</title>
+<!--    <link rel="stylesheet" th:href="@{/styles.css(v=1.1)}">-->
+    <div th:insert="fragments/base :: assetsHead"></div>
+</head>
+<body>
+
+<nav th:replace="fragments/navbar :: navbar"></nav>
+
+<div class="container">
+    <h1 class="game-title">Tekken <span>Reborn</span></h1>
+
+    <div class="game-description">
+        <p>
+            Experience the dawn of a new era in the King of Iron Fist Tournament with <strong>Tekken Reborn</strong>.
+            Rising from the ashes of the Mishima bloodline conflict, this new entry delivers stunning, high-fidelity combat and a revolutionary "Rebirth" system that redefines the pinnacle of 3D fighting.
+        </p>
+
+        <p>
+            Forge your own legacy with a massive roster of returning legends and mysterious newcomers.
+            Whether you are a veteran of the Iron Fist or stepping into the arena for the first time, prepare for the most aggressive and visually breathtaking Tekken ever conceived in the history of video gaming.
+        </p>
+
+        <h3>Unleash your Power 🐱‍👤</h3>
+        <ul>
+            <li><strong>Next-Gen Visuals:</strong> Powered by Unreal Engine 5 for stunning realism.</li>
+            <li><strong>Rollback Netcode:</strong> Experience lag-free battles against rivals worldwide.</li>
+            <li><strong>Interactive Stages:</strong> Destroy stage walls and floors to expand the fighting ground.</li>
+        </ul>
+    </div>
+
+    <!--        character boxes-->
+    <h3>The Legendary Trio</h3>
+    <div class="fighter-grid">
+        <div class="fighter-card">
+            <div class="fighter-overlay">
+                <img th:src="@{/images/jin.webp}" alt="Jin" class="fighter-img">
+            </div>
+            <div class="fighter-name">Jin Kazama</div>
+        </div>
+
+        <div class="fighter-card">
+            <div class="fighter-overlay">
+                <img th:src="@{/images/kazuya.webp}" alt="Kazuya" class="fighter-img">
+            </div>
+            <div class="fighter-name">Kazuya Mishima</div>
+        </div>
+
+        <div class="fighter-card">
+            <div class="fighter-overlay">
+                <img th:src="@{/images/king.webp}" alt="King" class="fighter-img">
+            </div>
+            <div class="fighter-name">King</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>PREPARE FOR THE NEXT BATTLE</p>
+    </div>
+</div>
+
+</body>
+</html>
