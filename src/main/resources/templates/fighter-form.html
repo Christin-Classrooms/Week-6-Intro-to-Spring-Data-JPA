@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Fighter</title>
+    <title>Fighter Form</title>
     <div th:insert="fragments/base :: assetsHead"></div>
 </head>
 <body>
@@ -10,12 +10,13 @@
 
 <div class="app-container">
     <div class="app-header text-center">
-        <h2>Create New Fighter</h2>
+        <h2 th:text="${fighter.id} ? 'Edit Fighter' : 'Register New Fighter'">Fighter Form</h2>
     </div>
 
     <div class="card">
         <div class="card-body">
-            <form th:action="@{/create-fighter}" th:object="${fighter}" method="post">
+            <form th:action="@{/fighters/save}" th:object="${fighter}" method="post">
+                <input type="hidden" th:field="*{id}" />
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
@@ -54,7 +55,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <button type="submit" class="btn btn-primary">Create Fighter</button>
+                    <button type="submit" class="btn btn-primary">Save Fighter</button>
                     <a href="/fighters" class="btn btn-secondary">Cancel</a>
                 </div>
             </form>
