@@ -24,6 +24,8 @@
                     <th scope="col">Health</th>
                     <th scope="col">Damage</th>
                     <th scope="col">Resistance</th>
+                    <!-- EMPTY HEADER FOR DELETE COL -->
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,6 +35,12 @@
                     <td th:text="${fighter.health}">1000</td>
                     <td th:text="${fighter.damage}">50.0</td>
                     <td th:text="${fighter.resistance}">5.0</td>
+                    <!-- DELETE WITH ONE CLICK, NO WARNING, HAH! TERRIBLE UX -->                    
+                    <td>
+                        <form th:action="@{/fighters/{id}/delete(id=${fighter.id})}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
