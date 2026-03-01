@@ -20,17 +20,16 @@ public class CreateFighterController {
     @GetMapping("/create-fighter")
     public String showCreateFighterForm(Model model) {
         model.addAttribute("fighter", new Fighter());
-        return "CreateFighter";
+        return "createFighter";
     }
 
     @PostMapping("/create-fighter")
     public String createFighter(@Valid Fighter fighter, BindingResult result) {
         if(result.hasErrors()) {
-            return "CreateFighter";
+            return "createFighter";
         }
 
-        fighterService.addFighter(fighter);
+        fighterService.save(fighter);
         return "redirect:/fighters";
     }
-
 }
